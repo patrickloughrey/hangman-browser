@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  background-image: url('file:///Users/PatrickLoughrey/Documents/RCB/hangman-browser/assets/images/outfield.jpg');
+  background-size: cover;
+
+}
+
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  align-content: flex-start;
+  width: 1279px;
+  height: 400px;
+
+}
+
+header {
+  align-content: center;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 3%;
+  font-size: 80px;
+  font-weight: 50;
+  font-family: 'Taviraj';
+  color: #F0F0F0;
+}
+
+h2 {
+  font-size: 60px;
+  font-weight: 40;
+  font-family: 'Taviraj';
+  position: relative;
+  color: #191970;
+  text-align: center;
+}
+
+
+footer {
+  margin-top: 2%;
+  width: 100%;
+  display:block;
+  text-align: center;
+  color: white;
+  font-family: 'Taviraj';
+  font-size: 20px;
+}
