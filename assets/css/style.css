@@ -113,7 +113,7 @@ h1 {
 .rubberBand {
   -webkit-animation-name: rubberBand;
   animation-name: rubberBand;
-  animation-duration: 2s;
+  animation-duration: 1.5s;
 }
 
 
