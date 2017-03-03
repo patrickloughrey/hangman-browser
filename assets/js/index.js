@@ -19,14 +19,6 @@ var numOfGuesses = 8;
 var lettersDisplay = ' ';
 
 
-/* Main Event Listener Function */
-document.addEventListener('keypress', function() {
-
-    var letter = event.key;
-    letter = letter.toUpperCase();
-
-})
-
 /* Yankees object that holds all game functions */
 var yankees = {
 
@@ -59,7 +51,7 @@ var yankees = {
   },
 
   /* Function to dynamically allocate dashes */
-  displayDashes: function(input) {
+  displayDashes: function(x) {
 
       var currQuestion = yankees.questions[num];
       var currAnswer = yankees.answers[num];
@@ -77,6 +69,8 @@ var yankees = {
           } else {
               dash.push(' ');
           }
+
+          i++;
       }
 
       displayQuestion.innerHTML = currQuestion;
@@ -105,7 +99,7 @@ var yankees = {
 
   },
 
-  /* Reset game function is user wins or loses */
+  /* Reset game function, re-initialize all variables */
   resetGame: function() {
 
       startGame.classList.remove('hidden');
@@ -149,3 +143,96 @@ var yankees = {
 
 }; /* End of Yankees object */
 
+yankees.resetGame();
+
+/* Main Event Listener Function */
+document.addEventListener('keypress', function() {
+
+    var input = event.key;
+    input = input.toUpperCase();
+    currAnswer = currAnswerArr.toUpperCase();
+
+    /* If user input is not a letter in current answer */
+    if(currAnswer.indexOf(input) == -1) {
+
+        /* If user has already guessed this letter */
+        if(lettersGuessed.indexOf(input) == -1) {
+
+            displayGuessesRemaining.innerHTML = numOfGuesses + ' Attempts Remaining';
+            numOfGuesses--;
+
+            
+            if(numOfGuesses < 7) {
+                console.log("You guessed the wrong letter!");
+                lettersGuessed.push(input);
+                lettersDisplay += input + " ";
+                displayLetterGuessed.innerHTML = lettersDisplay;
+            }
+
+
+        } else {
+            console.log("You guessed that letter already! Try a new letter this time!");
+
+        }
+
+
+    /* If user input is correct */
+    } else {
+
+          if(numOfGuesses == 8) {
+              numOfGuesses--;
+              displayGuessesRemaining.innerHTML = numOfGuesses + " Attempts Remaining";
+
+          } else if(numOfGuesses <= 7) {
+              yankees.displayLetters(input);
+              /* console.log(input) */
+          }
+
+          /* If there are no dashes remaining, user has guessed word correctly */
+          if(dashes.indexOf('_') == -1) {
+
+              setTimeout(function() {
+                  displayWords.innerHTML = "You win!";
+                  displayQuestion.innerHTML = " ";
+              }, 1200);
+
+              setTimeout(function() {
+                  wins++;
+                  displayWins.innerHTML = "Wins: " + wins;
+                  displayLetterGuessed.innerHTML = "";
+                  lettersDisplay = " ";
+                  lettersGuessed = [];
+                  currAnswer = "";
+                  currQuestion = "";
+                  currAnswerArr = [];
+                  dashes = [];
+
+                  yankees.startGame();
+
+              }, 1600);    
+          }
+    }
+
+    /* Losing scenario */
+    if(numOfGuesses < 1) {
+        displayGuessesRemaining.innerHTML = "You lost!";
+        lettersGuessed.innerHTML = "Press x to play again!";
+
+        displayWords.innerHTML = "";
+        displayQuestion.innerHTML = "";
+
+        if(input == 'x') {
+            yankees.resetGame();
+        }
+    }
+
+    if(numOfGuesses == 7) {
+        lettersGuessed.innerHTML = " ";
+    }
+
+    if(newGame == 1) {
+        startGame.innerHTML = "Begin!";
+        yankees.startGame();
+    }
+
+}); /* End of Listener Function */
