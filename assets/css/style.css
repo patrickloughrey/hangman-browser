@@ -4,7 +4,7 @@
 
 
 body {
-  background-image: url('file:///Users/PatrickLoughrey/Documents/RCB/hangman-browser/assets/images/outfield.jpg');
+  background-image: url('./images/outfield.jpg');
   background-size: cover;
 }
 
